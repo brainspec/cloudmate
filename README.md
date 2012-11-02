@@ -54,7 +54,7 @@ http://developers.cloudmade.com/wiki/routing-http-api/Documentation
 Cloudmate.route(points: [[47.25976, 9.58423], [47.26117, 9.59882]], type: :bicycle)
 ```
 
-## Contributing
+## Contributing [![Build Status](https://secure.travis-ci.org/brainspec/cloudmate.png?branch=master)](https://next.travis-ci.org/brainspec/cloudmate)
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
