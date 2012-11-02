@@ -2,13 +2,11 @@ require 'cloudmate/version'
 require 'cloudmate/client'
 
 module Cloudmate
-  class << self
-    extend Forwardable
+  extend SingleForwardable
 
-    def_delegators :client, :configure, :geocode, :route
+  def_delegators :client, :configure, :geocode, :route
 
-    def client
-      @client ||= Client.new
-    end
+  def self.client
+    @client ||= Client.new
   end
 end
