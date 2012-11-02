@@ -23,6 +23,8 @@ module Cloudmate
       options.each do |name, value|
         if value.respond_to?(:join)
           options[name] = value.join(',')
+        elsif value.kind_of?(Hash)
+          options[name] = value.map { |k, v| "#{k}:#{v}" }.join(';')
         end
       end
 
