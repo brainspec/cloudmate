@@ -30,5 +30,20 @@ module Cloudmate
 
       connection.request(:get, url, options)
     end
+
+    def route(options)
+      points = options.delete(:points)
+      route_type = options.delete(:type)
+      route_type_modifier = options.delete(:type_modifier)
+
+      coords = points[1..-2].flatten.join(',')
+      coords = [points.first, coords.empty? ? nil : "%5B#{coords}%5D", points.last].compact.flatten.join(',')
+
+      url = "http://routes.cloudmade.com/#{config.api_key}/api/0.3"
+      url = [url, coords, route_type, route_type_modifier].compact.join('/')
+      url << '.js'
+
+      connection.request(:get, url, options)
+    end
   end
 end

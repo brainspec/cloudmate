@@ -46,6 +46,14 @@ Reverse POI Geocoding:
 Cloudmate.geocode(object_type: 'cafe', around: [51.51558, -0.141449], distance: :closest)
 ```
 
+### Routing
+
+http://developers.cloudmade.com/wiki/routing-http-api/Documentation
+
+```ruby
+Cloudmate.route(points: [[47.25976, 9.58423], [47.26117, 9.59882]], type: :bicycle)
+```
+
 ## Contributing
 
 1. Fork it
