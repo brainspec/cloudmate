@@ -18,7 +18,33 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+Cloudmate.configure do |config|
+  config.api_key = 'CLOUDMADE_API_KEY'
+end
+```
+
+### Geocoding
+
+http://developers.cloudmade.com/projects/show/geocoding-http-api
+
+Free form address search:
+
+```ruby
+Cloudmate.geocode(query: '133 Fleet street, London, UK')
+```
+
+Structured address search:
+
+```ruby
+Cloudmate.geocode(query: { house: '133', street: 'Fleet street', city: 'London', country: 'UK' })
+```
+
+Reverse POI Geocoding:
+
+```ruby
+Cloudmate.geocode(object_type: 'cafe', around: [51.51558, -0.141449], distance: :closest)
+```
 
 ## Contributing
 
