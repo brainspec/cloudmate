@@ -33,7 +33,7 @@ module Cloudmate
 
     def route(options)
       points = options.delete(:points)
-      route_type = options.delete(:type)
+      route_type = options.delete(:type) { 'car' }
       route_type_modifier = options.delete(:type_modifier)
 
       coords = points[1..-2].flatten.join(',')

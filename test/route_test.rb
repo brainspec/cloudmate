@@ -19,5 +19,13 @@ module Cloudmate
       result = client.route(points: [[51.22545, 4.40730], [51.22, 4.41], [51.2, 4.41], [51.23, 4.42]], type: :car, units: :miles)
       assert_equal 9185, result['route_summary']['total_distance']
     end
+
+    def test_route_car_by_default
+      stub_request(:get, 'http://routes.cloudmade.com/TEST_API_KEY/api/0.3/47.25976,9.58423,47.26117,9.59882/car.js').
+        to_return(status: 200, body: fixture(:route))
+
+      result = client.route(points: [[47.25976, 9.58423], [47.26117, 9.59882]])
+      assert_equal 1603, result['route_summary']['total_distance']
+    end
   end
 end
