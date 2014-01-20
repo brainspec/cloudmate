@@ -31,19 +31,19 @@ http://developers.cloudmade.com/projects/show/geocoding-http-api
 Free form address search:
 
 ```ruby
-Cloudmate.geocode(query: '133 Fleet street, London, UK')
+Cloudmate.geocode(q: 'Leinfelden-Echterdingen Germany Karlstr. 12')
 ```
 
 Structured address search:
 
 ```ruby
-Cloudmate.geocode(query: { house: '133', street: 'Fleet street', city: 'London', country: 'UK' })
+Cloudmate.geocode(q: { country: 'Germany', street: 'Karlstr.', city: 'Leinfelden-Echterdingen', zip: '70771', housenumber: '12' })
 ```
 
-Reverse POI Geocoding:
+Reverse geocoding:
 
 ```ruby
-Cloudmate.geocode(object_type: 'cafe', around: [51.51558, -0.141449], distance: :closest)
+Cloudmate.geocode(q: [48.77615073, 9.16416465])
 ```
 
 ### Routing

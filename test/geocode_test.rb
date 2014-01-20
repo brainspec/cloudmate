@@ -5,27 +5,27 @@ module Cloudmate
     include TestHelper
 
     def test_query
-      stub_request(:get, 'http://geocoding.cloudmade.com/TEST_API_KEY/geocoding/v2/find.js?query=133%20Fleet%20street,%20London,%20UK').
+      stub_request(:get, 'http://beta.geocoding.cloudmade.com/v3/TEST_API_KEY/api/geo.location.search.2?format=json&source=OSM&enc=UTF-8&limit=10&q=Leinfelden-Echterdingen%20Germany%20Karlstr.%2012').
         to_return(status: 200, body: fixture(:geocode_query))
 
-      result = client.geocode(query: '133 Fleet street, London, UK')
-      assert_equal 2, result['found']
+      result = client.geocode(q: 'Leinfelden-Echterdingen Germany Karlstr. 12')
+      assert result['status']['success']
     end
 
     def test_query_structured
-      stub_request(:get, 'http://geocoding.cloudmade.com/TEST_API_KEY/geocoding/v2/find.js?query=house:133;street:Fleet+street;city:London;country:UK').
-        to_return(status: 200, body: fixture(:geocode_query))
+      stub_request(:get, 'http://beta.geocoding.cloudmade.com/v3/TEST_API_KEY/api/geo.location.search.2?format=json&source=OSM&enc=UTF-8&limit=10&q=[country=Germany][street=Karlstr.][city=Leinfelden-Echterdingen][zip=70771][housenumber=12]').
+        to_return(status: 200, body: fixture(:geocode_query_structured))
 
-      result = client.geocode(query: { house: '133', street: 'Fleet street', city: 'London', country: 'UK' })
-      assert_equal 2, result['found']
+      result = client.geocode(q: { country: 'Germany', street: 'Karlstr.', city: 'Leinfelden-Echterdingen', zip: '70771', housenumber: '12' })
+      assert result['status']['success']
     end
 
-    def test_around
-      stub_request(:get, 'http://geocoding.cloudmade.com/TEST_API_KEY/geocoding/v2/find.js?around=51.51558,-0.141449').
-        to_return(status: 200, body: fixture(:geocode_around))
+    def test_reverse
+      stub_request(:get, 'http://beta.geocoding.cloudmade.com/v3/TEST_API_KEY/api/geo.location.search.2?format=json&source=OSM&enc=UTF-8&limit=10&q=48.77615073;9.16416465').
+        to_return(status: 200, body: fixture(:geocode_reverse))
 
-      result = client.geocode(around: [51.51558, -0.141449])
-      assert_equal 9, result['found']
+      result = client.geocode(q: [48.77615073, 9.16416465])
+      assert result['status']['success']
     end
   end
 end
