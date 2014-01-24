@@ -18,15 +18,21 @@ module Cloudmate
     end
 
     def geocode(options)
-      url = "http://geocoding.cloudmade.com/#{config.api_key}/geocoding/v2/find.js"
+      url = "http://beta.geocoding.cloudmade.com/v3/#{config.api_key}/api/geo.location.search.2"
 
       options.each do |name, value|
         if value.respond_to?(:join)
-          options[name] = value.join(',')
+          options[name] = value.join(';')
         elsif value.kind_of?(Hash)
-          options[name] = value.map { |k, v| "#{k}:#{v}" }.join(';')
+          options[name] = value.map { |k, v| "[#{k}=#{v}]" }.join
         end
       end
+
+      options[:format] = 'json'
+
+      options[:source] ||= 'OSM'
+      options[:enc]    ||= 'UTF-8'
+      options[:limit]  ||= 10
 
       connection.request(:get, url, options)
     end
