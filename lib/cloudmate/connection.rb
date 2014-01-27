@@ -13,8 +13,7 @@ module Cloudmate
     def request(method, url, options={})
       response = @faraday.public_send(method) do |request|
         request.url(url, options)
-        request.options[:timeout]      = 2
-        request.options[:open_timeout] = 1
+        yield request if block_given?
       end
 
       response.body

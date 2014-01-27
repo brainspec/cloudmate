@@ -17,7 +17,7 @@ module Cloudmate
       @connection ||= Connection.new
     end
 
-    def geocode(options)
+    def geocode(options, &block)
       url = "http://beta.geocoding.cloudmade.com/v3/#{config.api_key}/api/geo.location.search.2"
 
       options.each do |name, value|
@@ -34,10 +34,10 @@ module Cloudmate
       options[:enc]    ||= 'UTF-8'
       options[:limit]  ||= 10
 
-      connection.request(:get, url, options)
+      connection.request(:get, url, options, &block)
     end
 
-    def route(options)
+    def route(options, &block)
       points = options.delete(:points)
       route_type = options.delete(:type) { 'car' }
       route_type_modifier = options.delete(:type_modifier)
@@ -49,7 +49,7 @@ module Cloudmate
       url = [url, coords, route_type, route_type_modifier].compact.join('/')
       url << '.js'
 
-      connection.request(:get, url, options)
+      connection.request(:get, url, options, &block)
     end
   end
 end
